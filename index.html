@@ -1,0 +1,1234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDM Furniture — Furniture, considered.</title>
+  <meta name="description" content="MDM Furniture is a modern furniture house crafting quietly luxurious pieces for the way you live. Explore sofas, chairs, tables, beds, lighting and objects of lasting beauty.">
+  <meta name="theme-color" content="#1b1916">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=2000&q=85">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/overlays.css">
+  <style>
+    .lang-toggle {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-left: 8px;
+    }
+    .lang-toggle select {
+      background: transparent;
+      color: currentColor;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 6px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    body:not(.dark-nav) .lang-toggle select {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+    /* Hide dynamically rendered price elements from js/app.js & js/data.js */
+    .product-card__price,
+    .modal__price,
+    .cart-item__price,
+    .cart-drawer__subtotal,
+    [class*="price"] {
+      display: none !important;
+    }
+
+    /* Mobile Responsive Enhancements */
+    @media (max-width: 768px) {
+      .lang-toggle select {
+        font-size: 11px;
+        padding: 3px 4px;
+      }
+      .nav__actions {
+        gap: 8px;
+      }
+      .hero__inner {
+        padding-top: 80px;
+        padding-bottom: 40px;
+      }
+      .hero__title {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
+        line-height: 1.1;
+      }
+      .section-title {
+        font-size: clamp(2rem, 7vw, 2.8rem);
+      }
+      .shop__toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .filters {
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filters::-webkit-scrollbar {
+        display: none;
+      }
+      .signature__grid,
+      .contact__grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .about__media {
+        min-height: 300px;
+      }
+      .footer__main {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer__cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav__inner {
+        padding: 0 16px;
+      }
+      .hero__copy {
+        padding: 0 16px;
+      }
+      .hero__actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero__actions .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body class="is-loading">
+
+  <a class="skip-link" href="#shop">Skip to collection</a>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__inner">
+      <div class="preloader__eyebrow" data-i18n="preloader_eyebrow">Furniture, considered</div>
+      <div class="preloader__brand">MDM&nbsp;FURNITURE</div>
+      <div class="preloader__meta">
+        <span data-i18n="preloader_est">Est. 1998 — Addis Ababa</span>
+        <span class="preloader__count" id="preloaderCount">00</span>
+      </div>
+      <div class="preloader__bar"><i id="preloaderBar"></i></div>
+    </div>
+  </div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#home" class="brand" aria-label="MDM Furniture — home">
+        <span class="brand__mark">M</span>
+        <span class="brand__name">MDM FURNITURE</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#home" class="nav__link is-active" data-i18n="nav_home">Home</a>
+        <a href="#shop" class="nav__link" data-i18n="nav_shop">Shop</a>
+        <a href="#collections" class="nav__link" data-i18n="nav_collections">Collections</a>
+        <a href="#about" class="nav__link" data-i18n="nav_about">About</a>
+        <a href="#contact" class="nav__link" data-i18n="nav_contact">Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <div class="lang-toggle">
+          <select id="languageSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="am">አማርኛ</option>
+            <option value="om">Afan Oromo</option>
+            <option value="ti">ትግርኛ</option>
+          </select>
+        </div>
+        <button class="nav__cart" id="cartToggle" aria-label="Open shopping cart" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+            <path d="M6 7.5h12l-1 12.5H7L6 7.5Z"/>
+            <path d="M9 7.5V6a3 3 0 0 1 6 0v1.5"/>
+          </svg>
+          <span class="nav__cart-count" id="cartCount" aria-live="polite">0</span>
+        </button>
+        <button class="nav__menu-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ MOBILE MENU ============ -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <p class="mobile-menu__eyebrow" data-i18n="mobile_menu">Menu</p>
+      <nav class="mobile-menu__links" aria-label="Mobile">
+        <a href="#home" class="mobile-menu__link"><span>01</span><span data-i18n="nav_home">Home</span></a>
+        <a href="#shop" class="mobile-menu__link"><span>02</span><span data-i18n="nav_shop">Shop</span></a>
+        <a href="#collections" class="mobile-menu__link"><span>03</span><span data-i18n="nav_collections">Collections</span></a>
+        <a href="#about" class="mobile-menu__link"><span>04</span><span data-i18n="nav_about">About</span></a>
+        <a href="#contact" class="mobile-menu__link"><span>05</span><span data-i18n="nav_contact">Contact</span></a>
+      </nav>
+      <div class="mobile-menu__footer">
+        <div>
+          <p class="mobile-menu__label" data-i18n="visit_studio">Visit the studio</p>
+          <p>Bredgade 24, Addis Ababa, Ethiopia</p>
+        </div>
+        <div>
+          <p class="mobile-menu__label" data-i18n="concierge">Concierge</p>
+          <a href="tel:+251710315475">+251 71 031 5475</a>
+        </div>
+        <div class="mobile-menu__socials">
+          <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.pinterest.com" target="_blank" rel="noopener">Pinterest</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAGE ============ -->
+  <div class="smooth-wrapper" id="smoothWrapper">
+    <div class="smooth-content" id="smoothContent">
+
+      <!-- HERO -->
+      <section class="hero" id="home">
+        <div class="hero__media">
+          <img class="hero__img" id="heroImg"
+               src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=2000&q=85"
+               alt="A serene contemporary living room with a sculptural sofa, warm oak and soft daylight" fetchpriority="high">
+          <div class="hero__overlay"></div>
+          <div class="hero__vignette"></div>
+        </div>
+
+        <div class="hero__deco" aria-hidden="true">
+          <span class="hero__ring"></span>
+          <span class="hero__glow"></span>
+          <span class="hero__hairline hero__hairline--1"></span>
+          <span class="hero__hairline hero__hairline--2"></span>
+        </div>
+
+        <div class="hero__inner" id="heroInner">
+          <div class="hero__copy">
+            <p class="eyebrow eyebrow--light" data-i18n="hero_eyebrow">
+              <span class="eyebrow__dot"></span>
+              New season — The Quiet Collection
+            </p>
+            <h1 class="hero__title">
+              <span class="hero__line"><span data-i18n="hero_title_1">Designed for</span></span>
+              <span class="hero__line"><span data-i18n="hero_title_2">the way you</span></span>
+              <span class="hero__line"><span><em data-i18n="hero_title_3">live.</em></span></span>
+            </h1>
+            <p class="hero__desc" data-i18n="hero_desc">
+              Quietly luxurious furniture, made in small batches from honest materials.
+              Pieces that settle into your home — and your life — with uncommon ease.
+            </p>
+            <div class="hero__actions">
+              <a href="#shop" class="btn btn--light">
+                <span data-i18n="explore_collection">Explore collection</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </a>
+              <a href="#collections" class="btn btn--ghost" data-i18n="shop_now">Shop now</a>
+            </div>
+          </div>
+
+          <div class="hero__aside">
+            <a href="#signature" class="hero__seal" aria-label="Explore the signature collection">
+              <svg viewBox="0 0 120 120" class="hero__seal-ring" aria-hidden="true">
+                <defs>
+                  <path id="sealPath" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/>
+                </defs>
+                <text>
+                  <textPath href="#sealPath">HANDCRAFTED FURNITURE · SINCE 1998 · MDM FURNITURE ·</textPath>
+                </text>
+              </svg>
+              <span class="hero__seal-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__footer">
+          <a href="#shop" class="hero__scroll">
+            <span class="hero__scroll-line"><i></i></span>
+            <span data-i18n="scroll_explore">Scroll to explore</span>
+          </a>
+          <div class="hero__meta">
+            <span class="hero__meta-num">01</span>
+            <span data-i18n="hero_meta_collection">Living collection<br>Autumn 2026</span>
+          </div>
+          <div class="hero__socials">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener">IG</a>
+            <a href="https://www.pinterest.com" target="_blank" rel="noopener">PT</a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener">IN</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span data-i18n="marquee_text">Handcrafted in small batches <i>◆</i> FSC-certified oak <i>◆</i> 10-year warranty <i>◆</i> Carbon-neutral delivery <i>◆</i> Designed in Addis Ababa <i>◆</i> Natural materials <i>◆</i></span>
+          <span data-i18n="marquee_text">Handcrafted in small batches <i>◆</i> FSC-certified oak <i>◆</i> 10-year warranty <i>◆</i> Carbon-neutral delivery <i>◆</i> Designed in Addis Ababa <i>◆</i> Natural materials <i>◆</i></span>
+        </div>
+      </div>
+
+      <!-- COLLECTION -->
+      <section class="shop section" id="shop">
+        <div class="shop__head">
+          <div class="section-head reveal">
+            <p class="eyebrow"><span class="eyebrow__dot"></span><span data-i18n="collection_eyebrow">The Collection</span></p>
+            <h2 class="section-title"><span data-i18n="collection_title_1">Objects of</span><br><em><span data-i18n="collection_title_2">lasting beauty.</span></em></h2>
+          </div>
+          <div class="shop__intro reveal" data-delay="1">
+            <p data-i18n="collection_intro">Every piece is drawn, prototyped and finished by hand in our Addis Ababa atelier. Natural materials, patient craftsmanship, and proportions that feel inevitable.</p>
+            <a href="#signature" class="link-arrow">
+              <span data-i18n="discover_craft">Discover our craft</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="shop__toolbar" id="shopToolbar">
+          <div class="filters" role="tablist" aria-label="Filter products by category">
+            <button class="filter is-active" data-filter="all" role="tab" aria-selected="true" data-i18n="filter_all">All pieces</button>
+            <button class="filter" data-filter="sofas" role="tab" aria-selected="false" data-i18n="filter_sofas">Sofas &amp; Couches</button>
+            <button class="filter" data-filter="chairs" role="tab" aria-selected="false" data-i18n="filter_chairs">Chairs</button>
+            <button class="filter" data-filter="tables" role="tab" aria-selected="false" data-i18n="filter_tables">Tables</button>
+            <button class="filter" data-filter="beds" role="tab" aria-selected="false" data-i18n="filter_beds">Beds</button>
+            <button class="filter" data-filter="wardrobes" role="tab" aria-selected="false" data-i18n="filter_wardrobes">Wardrobes</button>
+            <button class="filter" data-filter="lighting" role="tab" aria-selected="false" data-i18n="filter_lighting">Lighting</button>
+            <button class="filter" data-filter="decor" role="tab" aria-selected="false" data-i18n="filter_decor">Home Decor</button>
+          </div>
+          <div class="shop__meta">
+            <span class="shop__count" id="productCount">16 pieces</span>
+            <label class="sort">
+              <span data-i18n="sort_label">Sort</span>
+              <select id="sortSelect" aria-label="Sort products">
+                <option value="featured" data-i18n="sort_featured">Featured</option>
+                <option value="newest" data-i18n="sort_newest">New arrivals</option>
+                <option value="name-asc" data-i18n="sort_name_asc">Name — A to Z</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+            </label>
+          </div>
+        </div>
+
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <p class="shop__empty" id="shopEmpty" hidden data-i18n="shop_empty">No pieces in this collection yet. Explore another category.</p>
+      </section>
+
+      <!-- 3D SIGNATURE -->
+      <section class="signature section" id="signature">
+        <div class="signature__grid">
+          <div class="signature__copy reveal">
+            <p class="eyebrow"><span class="eyebrow__dot"></span><span data-i18n="sig_eyebrow">Signature Piece</span></p>
+            <h2 class="section-title"><span data-i18n="sig_title_1">Sculpted in</span><br><em><span data-i18n="sig_title_2">light and form.</span></em></h2>
+            <p class="signature__lead" data-i18n="sig_lead">A chair should hold you like a conversation — generously, and without hurry. Turn it over. Every joint is finished. Every curve is earned.</p>
+
+            <div class="signature__current">
+              <div>
+                <p class="signature__name" id="stageName">Oslo Lounge Chair</p>
+              </div>
+              <button class="link-arrow" id="stageViewBtn" type="button">
+                <span data-i18n="view_piece">View the piece</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+
+            <ul class="signature__specs">
+              <li><span>01</span><span data-i18n="sig_spec_1">Solid FSC oak frame</span></li>
+              <li><span>02</span><span data-i18n="sig_spec_2">Hand-stitched natural leather</span></li>
+              <li><span>03</span><span data-i18n="sig_spec_3">Made to order in 6 weeks</span></li>
+            </ul>
+          </div>
+
+          <div class="stage" id="stage">
+            <div class="stage__halo" aria-hidden="true"></div>
+            <div class="stage__orbit" aria-hidden="true">
+              <span>MDM FURNITURE · ATELIER ·</span>
+            </div>
+            <div class="stage__tilt" id="stageTilt">
+              <div class="stage__platform" aria-hidden="true"></div>
+              <div class="stage__product" id="stageProduct">
+                <img id="stageImage" src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1100&q=85" alt="Oslo Lounge Chair in solid oak and natural leather" loading="lazy">
+                <div class="stage__reflection" aria-hidden="true">
+                  <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1100&q=85" alt="">
+                </div>
+              </div>
+              <span class="stage__tag stage__tag--1" data-i18n="tag_solid_oak">Solid oak</span>
+              <span class="stage__tag stage__tag--2" data-i18n="tag_natural_leather">Natural leather</span>
+              <span class="stage__tag stage__tag--3" data-i18n="tag_warranty">10-year warranty</span>
+            </div>
+
+            <div class="stage__thumbs" id="stageThumbs" role="tablist" aria-label="Choose a signature piece">
+              <button class="stage__thumb is-active" data-stage="0" role="tab" aria-selected="true" aria-label="Oslo Lounge Chair">
+                <img src="https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=200&q=70" alt="" loading="lazy">
+              </button>
+              <button class="stage__thumb" data-stage="1" role="tab" aria-selected="false" aria-label="Lumen Bouclé Sofa">
+                <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=200&q=70" alt="" loading="lazy">
+              </button>
+              <button class="stage__thumb" data-stage="2" role="tab" aria-selected="false" aria-label="Arca Floor Lamp">
+                <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=200&q=70" alt="" loading="lazy">
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTERIORS -->
+      <section class="interiors section" id="collections">
+        <div class="interiors__head">
+          <div class="section-head reveal">
+            <p class="eyebrow"><span class="eyebrow__dot"></span><span data-i18n="interiors_eyebrow">Featured Interiors</span></p>
+            <h2 class="section-title"><span data-i18n="interiors_title_1">Rooms with a</span><br><em><span data-i18n="interiors_title_2">point of view.</span></em></h2>
+          </div>
+          <p class="interiors__intro reveal" data-delay="1" data-i18n="interiors_intro">Three studies in warmth, restraint and the quiet drama of good light. Step inside.</p>
+        </div>
+
+        <article class="interior">
+          <div class="interior__media parallax-media reveal-clip">
+            <img data-parallax="0.08" data-scale="1.18"
+                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85"
+                 alt="A sunlit living room with a low linen sofa and natural oak table" loading="lazy">
+            <span class="interior__num">01</span>
+          </div>
+          <div class="interior__body reveal">
+            <p class="eyebrow" data-i18n="room_living_eyebrow">The Living Room</p>
+            <h3><span data-i18n="room_living_title_1">Softness,</span><br><span data-i18n="room_living_title_2">with structure.</span></h3>
+            <p data-i18n="room_living_desc">Deep seats, tactile bouclé and a palette borrowed from sand and stone. A room built for long afternoons and longer conversations.</p>
+            <button class="link-arrow" data-collection="sofas">
+              <span data-i18n="explore_living">Explore the living room</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="interior interior--reverse">
+          <div class="interior__media parallax-media reveal-clip">
+            <img data-parallax="0.08" data-scale="1.18"
+                 src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=1600&q=85"
+                 alt="A calm bedroom in warm neutrals with a linen bed and sculptural lamp" loading="lazy">
+            <span class="interior__num">02</span>
+          </div>
+          <div class="interior__body reveal">
+            <p class="eyebrow" data-i18n="room_bed_eyebrow">The Bedroom</p>
+            <h3><span data-i18n="room_bed_title_1">Stillness,</span><br><span data-i18n="room_bed_title_2">by design.</span></h3>
+            <p data-i18n="room_bed_desc">Washed linen, gentle curves and light that arrives softly. Everything you need for rest — and nothing that asks for attention.</p>
+            <button class="link-arrow" data-collection="beds">
+              <span data-i18n="explore_bed">Explore the bedroom</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <article class="interior">
+          <div class="interior__media parallax-media reveal-clip">
+            <img data-parallax="0.08" data-scale="1.18"
+                 src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1600&q=85"
+                 alt="An elegant dining room with a solid oak table and sculptural chairs" loading="lazy">
+            <span class="interior__num">03</span>
+          </div>
+          <div class="interior__body reveal">
+            <p class="eyebrow" data-i18n="room_dining_eyebrow">The Dining Room</p>
+            <h3><span data-i18n="room_dining_title_1">Gathering,</span><br><span data-i18n="room_dining_title_2">made generous.</span></h3>
+            <p data-i18n="room_dining_desc">A table with presence and chairs that invite you to stay. Solid timber, honest joinery, and room for one more.</p>
+            <button class="link-arrow" data-collection="tables">
+              <span data-i18n="explore_dining">Explore the dining room</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="about section" id="about">
+        <div class="about__media">
+          <div class="about__img about__img--main parallax-media reveal-clip">
+            <img data-parallax="0.07" data-scale="1.14"
+                 src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1400&q=85"
+                 alt="The MDM Furniture atelier with natural materials, oak samples and hand tools" loading="lazy">
+          </div>
+          <div class="about__img about__img--small parallax-media reveal-clip">
+            <img data-parallax="0.12" data-scale="1.16"
+                 src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=900&q=85"
+                 alt="Detail of a hand-finished oak joint in the MDM Furniture workshop" loading="lazy">
+          </div>
+          <div class="about__tag">
+            <span class="about__tag-num">26</span>
+            <span data-i18n="years_craft">years of<br>quiet craft</span>
+          </div>
+        </div>
+
+        <div class="about__body">
+          <p class="eyebrow reveal"><span class="eyebrow__dot"></span><span data-i18n="story_eyebrow">Our Story</span></p>
+          <h2 class="section-title reveal" data-delay="1"><span data-i18n="story_title_1">Made slowly,</span><br><span data-i18n="story_title_2">to live with</span> <em><span data-i18n="story_title_3">for years.</span></em></h2>
+          <p class="about__lead reveal" data-delay="2" data-i18n="story_lead">MDM Furniture began in Addis Ababa in 1998 with a simple belief: furniture should be made for decades, not seasons.</p>
+          <p class="about__text reveal" data-delay="3" data-i18n="story_text">We work with a small circle of artisans across Ethiopia and East Africa. Timber is chosen board by board. Leather is cut by hand. Nothing leaves the atelier until it feels inevitable — quiet, tactile, and entirely at home.</p>
+
+          <div class="about__more" id="aboutMore">
+            <p class="about__text" data-i18n="story_more">Our materials are traceable and our finishes are non-toxic. We build in small runs, repair what we make, and design each piece to age gracefully — because the most sustainable furniture is the furniture you never want to replace.</p>
+          </div>
+          <button class="link-arrow about__toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutMore">
+            <span data-i18n="read_story">Read our story</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+          </button>
+
+          <div class="about__stats">
+            <div class="stat reveal"><span class="stat__num" data-count="40">0</span><span class="stat__label" data-i18n="stat_artisans">Master artisans</span></div>
+            <div class="stat reveal" data-delay="1"><span class="stat__num" data-count="12">0</span><span class="stat__label" data-i18n="stat_countries">Countries served</span></div>
+            <div class="stat reveal" data-delay="2"><span class="stat__num" data-count="96" data-suffix="%">0</span><span class="stat__label" data-i18n="stat_materials">Natural materials</span></div>
+            <div class="stat reveal" data-delay="3"><span class="stat__num" data-count="10" data-suffix="yr">0</span><span class="stat__label" data-i18n="stat_warranty">Craft warranty</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section class="reviews section" id="reviews">
+        <div class="reviews__head">
+          <p class="eyebrow eyebrow--light reveal"><span class="eyebrow__dot"></span><span data-i18n="reviews_eyebrow">Words From Our Clients</span></p>
+          <h2 class="section-title section-title--light reveal" data-delay="1"><span data-i18n="reviews_title">Quietly</span> <em><span data-i18n="reviews_title_emph">loved.</span></em></h2>
+        </div>
+
+        <div class="testimonials reveal" data-delay="2">
+          <div class="testimonials__viewport">
+            <div class="testimonials__track" id="testimonialTrack"></div>
+          </div>
+          <div class="testimonials__controls">
+            <button class="round-btn round-btn--light" id="testPrev" aria-label="Previous review">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+            </button>
+            <div class="testimonials__dots" id="testDots" role="tablist" aria-label="Choose a review"></div>
+            <button class="round-btn round-btn--light" id="testNext" aria-label="Next review">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="testimonials__counter"><span id="testCurrent">01</span><span id="testTotal">05</span></div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="contact section" id="contact">
+        <div class="contact__grid">
+          <div class="contact__intro">
+            <p class="eyebrow reveal"><span class="eyebrow__dot"></span><span data-i18n="contact_eyebrow">Visit &amp; Enquire</span></p>
+            <h2 class="section-title reveal" data-delay="1"><span data-i18n="contact_title_1">Begin your</span><br><em><span data-i18n="contact_title_2">space.</span></em></h2>
+            <p class="contact__lead reveal" data-delay="2" data-i18n="contact_lead">Our concierge team is here to help with sizing, samples, bespoke commissions and everything in between. We answer within one working day.</p>
+
+            <div class="contact__details reveal" data-delay="3">
+              <div class="contact__detail">
+                <span class="contact__label" data-i18n="studio_label">The Studio</span>
+                <p>Bredgade 24, Addis Ababa,<br>Ethiopia</p>
+                <a href="https://maps.google.com/?q=Bredgade+24,+Addis+Ababa" target="_blank" rel="noopener" class="link-arrow link-arrow--small"><span data-i18n="get_directions">Get directions</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="contact__detail">
+                <span class="contact__label" data-i18n="concierge_label">Concierge</span>
+                <p><a href="tel:+251710315475">+251 71 031 5475</a><br><a href="mailto:concierge@mdmfurniture.com">concierge@mdmfurniture.com</a></p>
+                <p class="contact__hours" data-i18n="contact_hours">Mon – Sat, 10:00 – 18:00 EAT</p>
+              </div>
+            </div>
+
+            <div class="contact__socials reveal" data-delay="4">
+              <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+              <a href="https://www.pinterest.com" target="_blank" rel="noopener">Pinterest</a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+            </div>
+          </div>
+
+          <div class="contact__form-wrap reveal" data-delay="2">
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="field">
+                <label for="contactName" data-i18n="form_name">Your name</label>
+                <input type="text" id="contactName" name="name" placeholder="Ingrid Larsen" required autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="contactEmail" data-i18n="form_email">Email address</label>
+                <input type="email" id="contactEmail" name="email" placeholder="ingrid@example.com" required autocomplete="email">
+              </div>
+              <div class="field">
+                <label for="contactInterest" data-i18n="form_interest">I'm interested in</label>
+                <select id="contactInterest" name="interest">
+                  <option data-i18n="opt_general">General enquiry</option>
+                  <option data-i18n="opt_bespoke">A bespoke commission</option>
+                  <option data-i18n="opt_trade">Trade &amp; interior design</option>
+                  <option data-i18n="opt_visiting">Visiting the studio</option>
+                  <option data-i18n="opt_care">Care &amp; repairs</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="contactMessage" data-i18n="form_message">Tell us about your space</label>
+                <textarea id="contactMessage" name="message" rows="4" placeholder="A little about the room, the light, and how you live…" required></textarea>
+              </div>
+              <button type="submit" class="btn btn--dark contact-form__submit">
+                <span data-i18n="send_enquiry">Send enquiry</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </button>
+              <p class="form-note" id="contactNote" role="status"></p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer__cta">
+          <div>
+            <p class="eyebrow eyebrow--light"><span class="eyebrow__dot"></span><span data-i18n="footer_eyebrow">Stay In The Know</span></p>
+            <h2 class="footer__title"><span data-i18n="footer_title_1">Let's make room</span><br>for <em><span data-i18n="footer_title_2">living.</span></em></h2>
+          </div>
+          <div class="footer__newsletter">
+            <p data-i18n="newsletter_desc">New collections, atelier stories and private previews. Twice a month, never more.</p>
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+              <label class="sr-only" for="newsletterEmail">Email address</label>
+              <input type="email" id="newsletterEmail" name="email" placeholder="Your email address" required autocomplete="email">
+              <button type="submit" aria-label="Subscribe to the newsletter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+            <p class="form-note form-note--light" id="newsletterNote" role="status"></p>
+          </div>
+        </div>
+
+        <div class="footer__main">
+          <div class="footer__brand">
+            <a href="#home" class="brand brand--footer" aria-label="MDM Furniture — home">
+              <span class="brand__mark">M</span>
+              <span class="brand__name">MDM FURNITURE</span>
+            </a>
+            <p data-i18n="footer_brand_desc">Furniture for the way you live. Designed in Addis Ababa, made slowly in Ethiopia since 1998.</p>
+            <div class="footer__socials">
+              <a href="https://www.instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+              </a>
+              <a href="https://www.pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.5 20c.7-2.1 1.5-4.6 2-7.4M10.8 12.6c-.5-2.2 1.7-3.4 3.2-2.3 1.6 1.1 1 4.2-1 4.8-1.3.4-2.3-.4-2.2-1.7"/></svg>
+              </a>
+              <a href="https://www.linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M7.5 10v7M7.5 7.2v.1M11.5 17v-4.2c0-1.6 3.5-2 3.5.4V17M11.5 10v1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <nav class="footer__col" aria-label="Shop">
+            <p class="footer__label" data-i18n="footer_shop_label">Shop</p>
+            <button data-filter-link="sofas" data-i18n="filter_sofas">Sofas &amp; Couches</button>
+            <button data-filter-link="chairs" data-i18n="filter_chairs">Chairs</button>
+            <button data-filter-link="tables" data-i18n="filter_tables">Tables</button>
+            <button data-filter-link="beds" data-i18n="filter_beds">Beds</button>
+            <button data-filter-link="wardrobes" data-i18n="filter_wardrobes">Wardrobes</button>
+            <button data-filter-link="lighting" data-i18n="filter_lighting">Lighting</button>
+            <button data-filter-link="decor" data-i18n="filter_decor">Home Decor</button>
+          </nav>
+
+          <nav class="footer__col" aria-label="Company">
+            <p class="footer__label" data-i18n="footer_house_label">House</p>
+            <a href="#about" data-i18n="footer_story">Our story</a>
+            <a href="#signature" data-i18n="footer_atelier">The atelier</a>
+            <a href="#collections" data-i18n="footer_interiors">Featured interiors</a>
+            <a href="#reviews" data-i18n="footer_reviews">Client words</a>
+            <a href="#contact" data-i18n="nav_contact">Contact</a>
+          </nav>
+
+          <div class="footer__col footer__col--contact">
+            <p class="footer__label" data-i18n="concierge_label">Concierge</p>
+            <a href="tel:+251710315475">+251 71 031 5475</a>
+            <a href="mailto:concierge@mdmfurniture.com">concierge@mdmfurniture.com</a>
+            <p>Bredgade 24, Addis Ababa,<br>Ethiopia</p>
+            <p data-i18n="footer_hours">Mon – Sat, 10:00 – 18:00</p>
+          </div>
+        </div>
+
+        <div class="footer__bottom">
+          <p data-i18n="footer_copyright">© 2026 MDM Furniture. Made with intention.</p>
+          <p class="footer__credit">Addis Ababa · Hawassa · Bahir Dar</p>
+          <button class="footer__top" id="backToTop" type="button">
+            <span data-i18n="back_to_top">Back to top</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 20V5M6 11l6-6 6 6"/></svg>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ============ CART ============ -->
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+    <header class="cart-drawer__head">
+      <h3 data-i18n="cart_title">Your cart <span id="cartDrawerCount">(0)</span></h3>
+      <button class="cart-drawer__close" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+    <div class="cart-drawer__inner" id="cartInner"></div>
+  </aside>
+
+  <!-- ============ PRODUCT MODAL ============ -->
+  <div class="modal" id="productModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close-modal></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" id="modalClose" aria-label="Close product details" data-close-modal>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="modal__gallery">
+        <div class="modal__main">
+          <img id="modalMainImage" alt="">
+          <span class="modal__badge" id="modalBadge"></span>
+        </div>
+        <div class="modal__thumbs" id="modalThumbs"></div>
+      </div>
+      <div class="modal__info" id="modalInfo"></div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="js/data.js"></script>
+  <script>
+    // Strip prices from product data before app.js renders cards, modals, and cart
+    if (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS)) {
+      PRODUCTS.forEach(p => {
+        delete p.price;
+        delete p.formattedPrice;
+      });
+    }
+    if (typeof SIGNATURE_PIECES !== 'undefined' && Array.isArray(SIGNATURE_PIECES)) {
+      SIGNATURE_PIECES.forEach(p => {
+        delete p.price;
+      });
+    }
+  </script>
+  <script src="js/app.js"></script>
+  <script>
+    // Ensure any dynamically injected price elements or currency strings are stripped
+    const stripPrices = (root = document.body) => {
+      root.querySelectorAll('.product-card__price, .modal__price, .cart-item__price, [class*="price"]').forEach(el => el.remove());
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      let node;
+      while ((node = walker.nextNode())) {
+        if (/\$[\d,]+(\.\d{2})?/.test(node.nodeValue)) {
+          node.nodeValue = node.nodeValue.replace(/\s*—?\s*\$[\d,]+(\.\d{2})?/g, '').trim();
+        }
+      }
+    };
+    stripPrices();
+    new MutationObserver((mutations) => {
+      mutations.forEach(m => m.addedNodes.forEach(n => {
+        if (n.nodeType === 1) stripPrices(n);
+      }));
+    }).observe(document.body, { childList: true, subtree: true });
+
+    const translations = {
+      en: {
+        preloader_eyebrow: "Furniture, considered",
+        preloader_est: "Est. 1998 — Addis Ababa",
+        nav_home: "Home",
+        nav_shop: "Shop",
+        nav_collections: "Collections",
+        nav_about: "About",
+        nav_contact: "Contact",
+        mobile_menu: "Menu",
+        visit_studio: "Visit the studio",
+        concierge: "Concierge",
+        hero_eyebrow: "New season — The Quiet Collection",
+        hero_title_1: "Designed for",
+        hero_title_2: "the way you",
+        hero_title_3: "live.",
+        hero_desc: "Quietly luxurious furniture, made in small batches from honest materials. Pieces that settle into your home — and your life — with uncommon ease.",
+        explore_collection: "Explore collection",
+        shop_now: "Shop now",
+        scroll_explore: "Scroll to explore",
+        hero_meta_collection: "Living collection<br>Autumn 2026",
+        marquee_text: "Handcrafted in small batches ◆ FSC-certified oak ◆ 10-year warranty ◆ Carbon-neutral delivery ◆ Designed in Addis Ababa ◆ Natural materials ◆",
+        collection_eyebrow: "The Collection",
+        collection_title_1: "Objects of",
+        collection_title_2: "lasting beauty.",
+        collection_intro: "Every piece is drawn, prototyped and finished by hand in our Addis Ababa atelier. Natural materials, patient craftsmanship, and proportions that feel inevitable.",
+        discover_craft: "Discover our craft",
+        filter_all: "All pieces",
+        filter_sofas: "Sofas & Couches",
+        filter_chairs: "Chairs",
+        filter_tables: "Tables",
+        filter_beds: "Beds",
+        filter_wardrobes: "Wardrobes",
+        filter_lighting: "Lighting",
+        filter_decor: "Home Decor",
+        sort_label: "Sort",
+        sort_featured: "Featured",
+        sort_newest: "New arrivals",
+        sort_name_asc: "Name — A to Z",
+        shop_empty: "No pieces in this collection yet. Explore another category.",
+        sig_eyebrow: "Signature Piece",
+        sig_title_1: "Sculpted in",
+        sig_title_2: "light and form.",
+        sig_lead: "A chair should hold you like a conversation — generously, and without hurry. Turn it over. Every joint is finished. Every curve is earned.",
+        view_piece: "View the piece",
+        sig_spec_1: "Solid FSC oak frame",
+        sig_spec_2: "Hand-stitched natural leather",
+        sig_spec_3: "Made to order in 6 weeks",
+        tag_solid_oak: "Solid oak",
+        tag_natural_leather: "Natural leather",
+        tag_warranty: "10-year warranty",
+        interiors_eyebrow: "Featured Interiors",
+        interiors_title_1: "Rooms with a",
+        interiors_title_2: "point of view.",
+        interiors_intro: "Three studies in warmth, restraint and the quiet drama of good light. Step inside.",
+        room_living_eyebrow: "The Living Room",
+        room_living_title_1: "Softness,",
+        room_living_title_2: "with structure.",
+        room_living_desc: "Deep seats, tactile bouclé and a palette borrowed from sand and stone. A room built for long afternoons and longer conversations.",
+        explore_living: "Explore the living room",
+        room_bed_eyebrow: "The Bedroom",
+        room_bed_title_1: "Stillness,",
+        room_bed_title_2: "by design.",
+        room_bed_desc: "Washed linen, gentle curves and light that arrives softly. Everything you need for rest — and nothing that asks for attention.",
+        explore_bed: "Explore the bedroom",
+        room_dining_eyebrow: "The Dining Room",
+        room_dining_title_1: "Gathering,",
+        room_dining_title_2: "made generous.",
+        room_dining_desc: "A table with presence and chairs that invite you to stay. Solid timber, honest joinery, and room for one more.",
+        explore_dining: "Explore the dining room",
+        years_craft: "years of<br>quiet craft",
+        story_eyebrow: "Our Story",
+        story_title_1: "Made slowly,",
+        story_title_2: "to live with",
+        story_title_3: "for years.",
+        story_lead: "MDM Furniture began in Addis Ababa in 1998 with a simple belief: furniture should be made for decades, not seasons.",
+        story_text: "We work with a small circle of artisans across Ethiopia and East Africa. Timber is chosen board by board. Leather is cut by hand. Nothing leaves the atelier until it feels inevitable — quiet, tactile, and entirely at home.",
+        story_more: "Our materials are traceable and our finishes are non-toxic. We build in small runs, repair what we make, and design each piece to age gracefully — because the most sustainable furniture is the furniture you never want to replace.",
+        read_story: "Read our story",
+        stat_artisans: "Master artisans",
+        stat_countries: "Countries served",
+        stat_materials: "Natural materials",
+        stat_warranty: "Craft warranty",
+        reviews_eyebrow: "Words From Our Clients",
+        reviews_title: "Quietly",
+        reviews_title_emph: "loved.",
+        contact_eyebrow: "Visit & Enquire",
+        contact_title_1: "Begin your",
+        contact_title_2: "space.",
+        contact_lead: "Our concierge team is here to help with sizing, samples, bespoke commissions and everything in between. We answer within one working day.",
+        studio_label: "The Studio",
+        get_directions: "Get directions",
+        concierge_label: "Concierge",
+        contact_hours: "Mon – Sat, 10:00 – 18:00 EAT",
+        form_name: "Your name",
+        form_email: "Email address",
+        form_interest: "I'm interested in",
+        opt_general: "General enquiry",
+        opt_bespoke: "A bespoke commission",
+        opt_trade: "Trade & interior design",
+        opt_visiting: "Visiting the studio",
+        opt_care: "Care & repairs",
+        form_message: "Tell us about your space",
+        send_enquiry: "Send enquiry",
+        footer_eyebrow: "Stay In The Know",
+        footer_title_1: "Let's make room",
+        footer_title_2: "living.",
+        newsletter_desc: "New collections, atelier stories and private previews. Twice a month, never more.",
+        footer_brand_desc: "Furniture for the way you live. Designed in Addis Ababa, made slowly in Ethiopia since 1998.",
+        footer_shop_label: "Shop",
+        footer_house_label: "House",
+        footer_story: "Our story",
+        footer_atelier: "The atelier",
+        footer_interiors: "Featured interiors",
+        footer_reviews: "Client words",
+        footer_hours: "Mon – Sat, 10:00 – 18:00",
+        footer_copyright: "© 2026 MDM Furniture. Made with intention.",
+        back_to_top: "Back to top",
+        cart_title: "Your cart"
+      },
+      am: {
+        preloader_eyebrow: "የተመረጡ የቤት እቃዎች",
+        preloader_est: "ተቋቋመ 1998 — አዲስ አበባ",
+        nav_home: "መነሻ",
+        nav_shop: "ሱቅ",
+        nav_collections: "ስብስቦች",
+        nav_about: "ስለ እኛ",
+        nav_contact: "አግኙን",
+        mobile_menu: "ማውጫ",
+        visit_studio: "ስቱዲዮውን ይጎብኙ",
+        concierge: "ረዳት",
+        hero_eyebrow: "አዲስ ወቅት — ጸጥተኛው ስብስብ",
+        hero_title_1: "ለእርስዎ አኗኗር",
+        hero_title_2: "በልዩ ሁኔታ",
+        hero_title_3: "የተዘጋጀ።",
+        hero_desc: "በጥራት ከሚታወቁ ቁሶች የተሰሩ ውብ የቤት እቃዎች። ከቤትዎ እና ከህይወትዎ ጋር በቀላሉ የሚጣጣሙ።",
+        explore_collection: "ስብስቡን ያስሱ",
+        shop_now: "አሁን ይግዙ",
+        scroll_explore: "ለማየት ወደታች ያሸብልሉ",
+        hero_meta_collection: "የመኖሪያ ስብስብ<br>መኸር 2026",
+        marquee_text: "በጥራት የተሰሩ ◆ FSC የተረጋገጠ ኦክ ◆ የ10 ዓመት ዋስትና ◆ ካርቦን-ገለልተኛ አቅርቦት ◆ በአዲስ አበባ የተነደፈ ◆ ተፈጥሯዊ ቁሶች ◆",
+        collection_eyebrow: "ስብስቡ",
+        collection_title_1: "ዘላቂ ውበት",
+        collection_title_2: "ያላቸው እቃዎች።",
+        collection_intro: "እያንዳንዱ እቃ በአዲስ አበባ ስቱዲዮችን በእጅ የተነደፈ እና የተጠናቀቀ ነው። ተፈጥሯዊ ቁሶች እና ጥንቃቄ የተሞላበት የእጅ ሙያ።",
+        discover_craft: "ጥበባችንን ያግኙ",
+        filter_all: "ሁሉም እቃዎች",
+        filter_sofas: "ሶፋዎች",
+        filter_chairs: "ወንበሮች",
+        filter_tables: "ጠረጴዛዎች",
+        filter_beds: "አልጋዎች",
+        filter_wardrobes: "ልብስ መያዣዎች",
+        filter_lighting: "መብራቶች",
+        filter_decor: "የቤት ማስጌጫዎች",
+        sort_sort: "ደርድር",
+        sort_featured: "ተመራጭ",
+        sort_newest: "አዲስ ገቢዎች",
+        sort_name_asc: "ስም — ከ ሀ እስከ ፐ",
+        shop_empty: "በዚህ ስብስብ ውስጥ እስካሁን ምንም እቃዎች የሉም። ሌላ ምድብ ያስሱ።",
+        sig_eyebrow: "ልዩ እቃ",
+        sig_title_1: "በብርሃን እና",
+        sig_title_2: "ቅርጽ የተሰራ።",
+        sig_lead: "አንድ ወንበር ልክ እንደ ውይይት ሊቀበልዎ ይገባል። እያንዳንዱ መገጣጠሚያ እና ከርቭ በጥንቃቄ የተሰራ ነው።",
+        view_piece: "እቃውን ይመልከቱ",
+        sig_spec_1: "ጠንካራ የ FSC ኦክ ማዕቀፍ",
+        sig_spec_2: "በእጅ የተሰፋ ተፈጥሯዊ የቆዳ ሽፋን",
+        sig_spec_3: "በ6 ሳምንታት ውስጥ የሚዘጋጅ",
+        tag_solid_oak: "ጠንካራ ኦክ",
+        tag_natural_leather: "ተፈጥሯዊ ሌዘር",
+        tag_warranty: "የ10 ዓመት ዋስትና",
+        interiors_eyebrow: "ተለይተው የቀረቡ ክፍሎች",
+        interiors_title_1: "ልዩ እይታ",
+        interiors_title_2: "ያላቸው ክፍሎች።",
+        interiors_intro: "በሙቀት እና በብርሃን የተዋቡ ሶስት ጥናቶች። ይግቡ።",
+        room_living_eyebrow: "የመኖሪያ ክፍል",
+        room_living_title_1: "ለስላሳነት",
+        room_living_title_2: "ከጥንካሬ ጋር።",
+        room_living_desc: "ለረጅም ሰዓታት ንግግር የተዘጋጀ ምቹ ክፍልል።",
+        explore_living: "የመኖሪያ ክፍሉን ያስሱ",
+        room_bed_eyebrow: "የመኝታ ክፍል",
+        room_bed_title_1: "መረጋጋት",
+        room_bed_title_2: "በዲዛይን።",
+        room_bed_desc: "ለእረፍትዎ የሚያስፈልግዎ ነገር ሁሉ ያለ ትኩረት የሚከፋፍል ነገር።",
+        explore_bed: "የመኝታ ክፍሉን ያስሱ",
+        room_dining_eyebrow: "የመመገቢያ ክፍል",
+        room_dining_title_1: "መሰብሰቢያ,",
+        room_dining_title_2: "ለጋስነት የተሞላ።",
+        room_dining_desc: "እንዲቆዩ የሚጋብዝ ጠረጴዛ እና ወንበሮች።",
+        explore_dining: "የመመገቢያ ክፍሉን ያስሱ",
+        years_craft: "ዓመታት የፈጀ<br>ጸጥተኛ ጥበብ",
+        story_eyebrow: "ታሪካችን",
+        story_title_1: "በዝግታ የተሰራ,",
+        story_title_2: "ለብዙ ዓመታት",
+        story_title_3: "የሚኖር።",
+        story_lead: "MDM Furniture በ1998 በአዲስ አበባ ተጀመረ፡ የቤት እቃዎች ለብዙ አሥርተ ዓመታት እንጂ ለወቅቶች ብቻ መደረግ የለባቸውም በሚል እምነት።",
+        story_text: "ከኢትዮጵያ እና ከምስራቅ አፍሪካ የእጅ ባለሙያዎች ጋር እንሰራለን። እንጨት በቦርድ ይመረጣል. ሌዘር በእጅ ይቆረጣል.",
+        story_more: "ቁሶቻችን መከታተያ ያላቸው እና አጨራረሳቸው መርዛማ ያልሆኑ ናቸው።",
+        read_story: "ታሪካችንን አንብብ",
+        stat_artisans: "ዋና የእጅ ባለሙያዎች",
+        stat_countries: "አገልግሎት የሚሰጥባቸው አገሮች",
+        stat_materials: "ተፈጥሯዊ ቁሶች",
+        stat_warranty: "የጥበብ ዋስትና",
+        reviews_eyebrow: "ከደንበኞቻችን የተሰጡ ቃላት",
+        reviews_title: "በጸጥታ",
+        reviews_title_emph: "የተወደዱ።",
+        contact_eyebrow: "ይጎብኙ እና ይጠይቁ",
+        contact_title_1: "ቦታዎን",
+        contact_title_2: "ይጀምሩ።",
+        contact_lead: "የረዳት ቡድናችን በመጠን፣ በናሙናዎች እና በልዩ ትዕዛዞች ሊረዳዎ ዝግጁ ነው። በአንድ የስራ ቀን ውስጥ እንመልሳለን።",
+        studio_label: "ስቱዲዮው",
+        get_directions: "አቅጣጫዎችን ያግኙ",
+        concierge_label: "ረዳት",
+        contact_hours: "ሰኞ - ቅዳሜ፣ 10:00 - 18:00 EAT",
+        form_name: "ስምዎ",
+        form_email: "የኢሜይል አድራሻ",
+        form_interest: "ፍላጎቴ",
+        opt_general: "አጠቃላይ ጥያቄ",
+        opt_bespoke: "ልዩ ትዕዛዝ",
+        opt_trade: "ንግድ እና የቤት ውስጥ ዲዛይን",
+        opt_visiting: "ስቱዲዮውን መጎብኘት",
+        opt_care: "እንክብካቤ እና ጥገና",
+        form_message: "ስለ ቦታዎ ይንገሩን",
+        send_enquiry: "ጥያቄ ይላኩ",
+        footer_eyebrow: "ያውቁ",
+        footer_title_1: "ክፍል እንፍጠር",
+        footer_title_2: "ለኑሮ።",
+        newsletter_desc: "አዳዲስ ስብስቦች፣ የስቱዲዮ ታሪኮች እና የግል ቅድመ-ዕይታዎች። በወር ሁለት ጊዜ፣ ከዚህ በላይ አይሆንም።",
+        footer_brand_desc: "ለእርስዎ አኗኗር የሚሆን የቤት እቃዎች። በአዲስ አበባ የተነደፈ፣ ከ1998 ጀምሮ በኢትዮጵያ የተሰራ።",
+        footer_shop_label: "ሱቅ",
+        footer_house_label: "ቤት",
+        footer_story: "ታሪካችን",
+        footer_atelier: "አቴሊየሩ",
+        footer_interiors: "ተለይተው የቀረቡ ክፍሎች",
+        footer_reviews: "የደንበኞች ቃላት",
+        footer_hours: "ሰኞ - ቅዳሜ፣ 10:00 - 18:00",
+        footer_copyright: "© 2026 MDM Furniture። በሐሳብ የተሰራ።",
+        back_to_top: "ወደ ላይ ተመለስ",
+        cart_title: "የእርስዎ ጋሪ"
+      },
+      om: {
+        preloader_eyebrow: "Farshaa Manaa, yaada keessa gale",
+        preloader_est: "Hundaa'ame 1998 — Finfinnee",
+        nav_home: "Mana",
+        nav_shop: "Suuqii",
+        nav_collections: "Walitti Qabamoo",
+        nav_about: "Waa'ee Keenya",
+        nav_contact: "Nu Quunnamaa",
+        mobile_menu: "Tarree",
+        visit_studio: "Studiicha daawwadhaa",
+        concierge: "Gorsaa",
+        hero_eyebrow: "Waqtii haaraa — Walitti Qabamoo Callisaa",
+        hero_title_1: "Akkaataa jireenya",
+        hero_title_2: "keessaniif kan",
+        hero_title_3: "qophaa'e.",
+        hero_desc: "Fkn: Farshaa qabeenya qabeeyyii, meeshaalee amanamoo irraa hojjetaman. Mana keessan keessatti tasgabbiin kan jiraatan.",
+        explore_collection: "Walitti qabamoo sakatta'aa",
+        shop_now: "Amma bitadhaa",
+        scroll_explore: "Gadi bu'uun ilaalaa",
+        hero_meta_collection: "Walitti qabamoo jireenyaa<br>Bulkuu 2026",
+        marquee_text: "Harkaan kan hojjetame ◆ Mukaa FSC mirkanaa'e ◆ Wabii waggaa 10 ◆ Dhiyeessii karbonii-hin qabne ◆ Finfinneetti kan qophaa'e ◆ Meeshaalee uumamaa ◆",
+        collection_eyebrow: "Walitti Qabamoo",
+        collection_title_1: "Miidhagina",
+        collection_title_2: "barabaraa.",
+        collection_intro: "Meeshaan hundinuu ateliyeerii keenya Finfinneetti harkaan kan qophaa'eedha. Meeshaalee uumamaa fi ogummaa harkaa.",
+        discover_craft: "Ogummaa keenya argadhaa",
+        filter_all: "Meeshaalee hunda",
+        filter_sofas: "Sofootaa",
+        filter_chairs: "Arraabaa",
+        filter_tables: "Gabatee",
+        filter_beds: "Siree",
+        filter_wardrobes: "Kuusaa uffataa",
+        filter_lighting: "Ibsaa",
+        filter_decor: "Faayidaa mana",
+        sort_sort: "Qindeessi",
+        sort_featured: "Kan filatame",
+        sort_newest: "Haaraa dhufan",
+        sort_name_asc: "Maqaa — A irraa Z gadi",
+        shop_empty: "Walitti qabamoo kana keessatti meeshaan hin jiru. Gosa biraa sakatta'aa.",
+        sig_eyebrow: "Meeshaa Addaa",
+        sig_title_1: "Ifaa fi",
+        sig_title_2: "bifaaniin kan qotame.",
+        sig_lead: "Arraabni tokko akka haasaatti si qabachuu qaba. Walitti dhufeenyi hundinuu xumurameera.",
+        view_piece: "Meeshaa kana ilaalaa",
+        sig_spec_1: "FSC mukaa cimaa",
+        sig_spec_2: "Gogaa uumamaa harkaan hodhame",
+        sig_spec_3: "Torban 6 keessatti kan qophaa'u",
+        tag_solid_oak: "Mukaa cimaa",
+        tag_natural_leather: "Gogaa uumamaa",
+        tag_warranty: "Wabii waggaa 10",
+        interiors_eyebrow: "Keessoo Manaa Filataman",
+        interiors_title_1: "Kutaa ilaalcha",
+        interiors_title_2: "addaa qabu.",
+        interiors_intro: "Qorannoo sadii kan hoo'ina fi ifaa qabu. Ol seensaa.",
+        room_living_eyebrow: "Kutaa Jireenyaa",
+        room_living_title_1: "Laafina,",
+        room_living_title_2: "caasaa wajjin.",
+        room_living_desc: "Taphni dheeraaf kan qophaa'e kutaa mijataa.",
+        explore_living: "Kutaa jireenyaa sakatta'aa",
+        room_bed_eyebrow: "Kutaa Raffaa",
+        room_bed_title_1: "Tasgabbii,",
+        room_bed_title_2: "diizaayiniin.",
+        room_bed_desc: "Boqonnaaf waan si barbaachisu hunda.",
+        explore_bed: "Kutaa raffaa sakatta'aa",
+        room_dining_eyebrow: "Kutaa Nyaataa",
+        room_dining_title_1: "Walitti qabachuu,",
+        room_dining_title_2: "kennaa ta'e.",
+        room_dining_desc: "Gabatee fi arraaba akka turtu si afeeru.",
+        explore_dining: "Kutaa nyaataa sakatta'aa",
+        years_craft: "waggoota<br>ogummaa callisaa",
+        story_eyebrow: "Seenaa Keenya",
+        story_title_1: "Suuta kan hojjetame,",
+        story_title_2: "waggoota hedduuf",
+        story_title_3: "kan tajaajilu.",
+        story_lead: "MDM Furniture bara 1998 Finfinneetti eegalame: meeshaan manaaf malee yeroof qofa ta'uu hin qabu.",
+        story_text: "Ogeeyyii Itoophiyaa fi Afrikaa Bahaa wajjin hojjenna.",
+        story_more: "Meeshaaleen keenya mirkanaa'oo dha.",
+        read_story: "Seenaa keenya dubbisaa",
+        stat_artisans: "Ogeeyyii gurguddoo",
+        stat_countries: "Biyyoota tajaajilaman",
+        stat_materials: "Meeshaalee uumamaa",
+        stat_warranty: "Wabii ogummaa",
+        reviews_eyebrow: "Yaada Maamiltoota Keenyaa",
+        reviews_title: "Callisaan",
+        reviews_title_emph: "kan jaallatame.",
+        contact_eyebrow: "Daawwadhaa & Gaafadhaa",
+        contact_title_1: "Bakka keessan",
+        contact_title_2: "jalqabaa.",
+        contact_lead: "Gorsitoonni keenya deggersaaf qophaa'aniiru. Guyyaa hojii tokko keessatti deebisna.",
+        studio_label: "Studiicha",
+        get_directions: "Karaan argadhaa",
+        concierge_label: "Gorsaa",
+        contact_hours: "Wiixata - Sanbata, 10:00 - 18:00 EAT",
+        form_name: "Maqaa keessan",
+        form_email: "Teessoo imeelii",
+        form_interest: "Fedhii kiyya",
+        opt_general: "Gaaffii waliigalaa",
+        opt_bespoke: "Ajaja addaa",
+        opt_trade: "Daldala & Diizaayinii keessoo",
+        opt_visiting: "Studiicha daawwachuu",
+        opt_care: "Kunuunsa & Suphaa",
+        form_message: "Waa'ee bakka keessanii nutti himaa",
+        send_enquiry: "Gaaffii ergaa",
+        footer_eyebrow: "Beekaa",
+        footer_title_1: "Bakka uumaa",
+        footer_title_2: "jireenyaaf.",
+        newsletter_desc: "Walitti qabamoo haaraa fi seenaa ateliyeerii. Ji'atti al lama qofa.",
+        footer_brand_desc: "Farshaa jireenya keessaniif. Finfinneetti kan qophaa'e.",
+        footer_shop_label: "Suuqii",
+        footer_house_label: "Mana",
+        footer_story: "Seenaa keenya",
+        footer_atelier: "Ateliyeerii",
+        footer_interiors: "Keessoo filataman",
+        footer_reviews: "Yaada maamiltootaa",
+        footer_hours: "Wiixata - Sanbata, 10:00 - 18:00",
+        footer_copyright: "© 2026 MDM Furniture. Yaadachaadhaan hojjetame.",
+        back_to_top: "Gara oliitti deebi'i",
+        cart_title: "Gaarii keessan"
+      },
+      ti: {
+        preloader_eyebrow: "እቲ ዝተመርጸ የቤት እቃዎች",
+        preloader_est: "ተመስረተ 1998 — ኣዲስ አበባ",
+        nav_home: "መበገሲ",
+        nav_shop: "ሱቅ",
+        nav_collections: "እቃዎች",
+        nav_about: "ብዛዕባና",
+        nav_contact: "ርኸቡና",
+        mobile_menu: "ሰሌዳ",
+        visit_studio: "ስቱድዮ በጽሑ",
+        concierge: "ሓጋዚ",
+        hero_eyebrow: "ሓድሽ እዋን — ዝጸንተተ ስብስብ",
+        hero_title_1: "ንኣገባብ ብርሃን",
+        hero_title_2: "ናይ ህይወትካ",
+        hero_title_3: "ዝተዳለወ።",
+        hero_desc: "ጽኑዕን ጥዑይን ዝዀኑ እቃዎች። ምስ ቤትካን ህይወትካን ብቐሊሉ ዝሰማዕም።",
+        explore_collection: "እቲ ስብስብ ዳህሰስ",
+        shop_now: "ሕጂ ግዛእ",
+        scroll_explore: "ንምርኣይ ናብ ታሕቲ ጸቅጥ",
+        hero_meta_collection: "ናይ መነባብሮ ስብስብ<br>ክረምቲ 2026",
+        marquee_text: "ብኢደ-ጥበብ ዝተሰርሐ ◆ FSC ዝተረጋገጠ ኦክ ◆ የ10 ዓመት ዋስትና ◆ ናይ ካርቦን መጠን የብሉን ◆ ኣብ ኣዲስ አበባ ዝተነደፈ ◆ ተፈጥሮአዊ ቃዎች ◆",
+        collection_eyebrow: "እቲ ስብስብ",
+        collection_title_1: "ዘላቒ ውበት",
+        collection_title_2: "ዘለዎም እቃዎች።",
+        collection_intro: "ነፍሲ ወከፍ እቃ ኣብ ኣዲስ አበባ ብኢድ ዝተዳለወ እዩ። ተፈጥሮአዊ እቃዎች ብጥንቃቐ ዝተሰርሑ።",
+        discover_craft: "ጥበብና ረኸብ",
+        filter_all: "ኩሎም እቃዎች",
+        filter_sofas: "ሶፋታት",
+        filter_chairs: "ወንበራት",
+        filter_tables: "መኣዛታት",
+        filter_beds: "ዓራት",
+        filter_wardrobes: "መቐመጢ ክዳውንቲ",
+        filter_lighting: "ብርሃናት",
+        filter_decor: "መጌብቲ ገዛ",
+        sort_sort: "ደርድር",
+        sort_featured: "ዝተመርጸ",
+        sort_newest: "ሓደሽቲ",
+        sort_name_asc: "ስም — ካብ ሀ ናብ ፐ",
+        shop_empty: "ኣብዚ ስብስብ ገና ዝኾነ እቃ የልቦን። ካልእ ምድብ ዳህሰስ።",
+        sig_eyebrow: "ፍሉይ እቃ",
+        sig_title_1: "ብብርሃንን",
+        sig_title_2: "ቅርጽን ዝተነደፈ።",
+        sig_lead: "ወንበር ከም ዕላል ክቕበለካ ይግባእ። ነፍሲ ወከፍ መራኸቢ ብጥንቃቐ ዝተሰርሐ እዩ።",
+        view_piece: "ነቲ እቃ ርአ",
+        sig_spec_1: "ጽኑዕ FSC ኦክ ማዕቀፍ",
+        sig_spec_2: "ብኢድ ዝተሰፍአ ተፈጥሮአዊ የቆዳ ሽፋን",
+        sig_spec_3: "ኣብ 6 ሰሙናት ዝዳሎ",
+        tag_solid_oak: "ጽኑዕ ኦክ",
+        tag_natural_leather: "ተፈጥሮአዊ ሌዘር",
+        tag_warranty: "የ10 ዓመት ዋስትና",
+        interiors_eyebrow: "ዝተመርጹ ክፍሊታት",
+        interiors_title_1: "ፍሉይ ርኢቶ",
+        interiors_title_2: "ዘለዎም ክፍሊታት።",
+        interiors_intro: "ሰለስተ ናይ ውዑይን ብርሃንን መጽናዕቲ። እተው።",
+        room_living_eyebrow: "ክፍሊ መነባብሮ",
+        room_living_title_1: " ልስሉስነት,",
+        room_living_title_2: "ምስ ቅርጺ።",
+        room_living_desc: "ንነዊሕ ሰዓታት ዕላል ዝተዳለወ ምሹእ ክፍሊ።",
+        explore_living: "ክፍሊ መነባብሮ ዳህሰስ",
+        room_bed_eyebrow: "ክፍሊ መደቀሲ",
+        room_bed_title_1: "ህድኣት,",
+        room_bed_title_2: "ብዲዛይን።",
+        room_bed_desc: "ንዕረፍቲ ዚድለ ዘድሊ ኩሉ ነገራት።",
+        explore_bed: "ክፍሊ መደቀሲ ዳህሰስ",
+        room_dining_eyebrow: "ክፍሊ መግቢ",
+        room_dining_title_1: "አኼባ,",
+        room_dining_title_2: "ብዕቱብ ዝተዳለወ።",
+        room_dining_desc: "ክጸንሑ ዝዕድሙ መኣዛታትን ወንበራትን።",
+        explore_dining: "ክፍሊ መግቢ ዳህሰስ",
+        years_craft: "ዓመታት ዝገበረ<br>ጸጥተኛ ጥበብ",
+        story_eyebrow: "ታሪኽና",
+        story_title_1: "ብህድኣት ዝተሰርሐ,",
+        story_title_2: "ንነዊሕ ዓመታት",
+        story_title_3: "ዝጸንሕ።",
+        story_lead: "MDM Furniture ኣብ 1998 ኣብ ኣዲስ አበባ ተጀመረ፡ እቃዎች ንብዙሓት ዓመታት ክጸንሑ ኣለዎም ብዝብል እምነት።",
+        story_text: "ምስ ክኢላታት ኢትዮጵያን ምብራቕ ኣፍሪካን ንሰርሕ።",
+        story_more: "እቃዎችና ዝተረጋገጡ እዮም።",
+        read_story: "ታሪኽና አንብብ",
+        stat_artisans: "ዋናታት ክኢላታት",
+        stat_countries: "ኣገልግሎት ዝወሃበለን ሃገራት",
+        stat_materials: "ተፈጥሮአዊ ቁሶች",
+        stat_warranty: "ዋስትና ጥበብ",
+        reviews_eyebrow: "ርኢቶ ካብ ደንበኛታትና",
+        reviews_title: "ብህድኣት",
+        reviews_title_emph: "ዝተፈተወ።",
+        contact_eyebrow: "በጽሑ & ሕተቱ",
+        contact_title_1: "ቦታኻ",
+        contact_title_2: "ጀምር።",
+        contact_lead: "ጉጅለና ብመጠን፣ ብቅራጻን ብፍሉይ ትእዛዛትን ክሕግዙኩም ድሉዋት እዮም። ኣብ ሓደ ናይ ስራሕ መዓልቲ ንመልስ።",
+        studio_label: "እቲ ስቱድዮ",
+        get_directions: "ኣንፈት ረኸብ",
+        concierge_label: "ሓጋዚ",
+        contact_hours: "ሰኑይ - ቀዳም፣ 10:00 - 18:00 EAT",
+        form_name: "ስምካ",
+        form_email: "ኢሜይል ኣድራሻ",
+        form_interest: "ድሌተይ",
+        opt_general: "ሓፈሻዊ ሕቶ",
+        opt_bespoke: "ፍሉይ ትእዛዝ",
+        opt_trade: "ንግድን ዲዛይን ገዛን",
+        opt_visiting: "ስቱድዮ ምብጻሕ",
+        opt_care: "ክንክንንጽገናን",
+        form_message: "ብዛዕባ ቦታኻ ንገረና",
+        send_enquiry: "ሕቶ ልአኽ",
+        footer_eyebrow: "ፍለጥ",
+        footer_title_1: "ክፍሊ ንፍጠር",
+        footer_title_2: "ንህይወት።",
+        newsletter_desc: "ሓደሽቲ ስብስባት፣ ታሪኽ ስቱድዮ። በወር ክልተ ግዜ ጥራይ።",
+        footer_brand_desc: "ንህይወትካ ዝኸውን የቤት እቃዎች። ኣብ ኣዲስ አበባ ዝተነደፈ።",
+        footer_shop_label: "ሱቅ",
+        footer_house_label: "ገዛ",
+        footer_story: "ታሪኽና",
+        footer_atelier: "አቴልየ",
+        footer_interiors: "ዝተመርጹ ክፍሊታት",
+        footer_reviews: "ርኢቶ ደንበኛታት",
+        footer_hours: "ሰኑይ - ቀዳም፣ 10:00 - 18:00",
+        footer_copyright: "© 2026 MDM Furniture። ብሓሳብ ዝተሰርሐ።",
+        back_to_top: "ናብ ላዕሊ ተመለስ",
+        cart_title: "ጋሪኻ"
+      }
+    };
+
+    const langSelect = document.getElementById('languageSelect');
+    langSelect.addEventListener('change', (e) => {
+      const lang = e.target.value;
+      document.documentElement.setAttribute('lang', lang);
+      const dict = translations[lang] || translations.en;
+      
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+    });
+  </script>
+</body>
+</html>
